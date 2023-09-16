@@ -7,10 +7,10 @@ class TemplateProcessor {
     }
     fillIn(variable){
         let entries = Object.entries(variable)
-        for(let i = 0;i<entries.keys();i++){
-            let lookup =  `{{${entries.key[i]}}}`
+        for(const [key,value] of entries){
+            let lookup =  `{{${key}}}`
             if (template.includes(lookup)) {
-                template = template.replace(lookup, variable.value[i])
+                template = template.replace(lookup, value)
             }
         }
         return template
@@ -18,12 +18,3 @@ class TemplateProcessor {
 }
 
 
-template = `My favorite month is {{month}} but not the day {{day}} or the year {{year}}`;
-let dateTemplate = new TemplateProcessor(template);
-
-let dictionary = {month: 'July', day: '1', year: '2016'};
-for(let i = 0;i<dictionary.length;i++){
-    console.log(dictionary)
-}
-let print_str = dateTemplate.fillIn(dictionary);
-console.log(print_str)

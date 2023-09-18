@@ -1,35 +1,29 @@
 'use strict';
-function MakeMultiFilter(array) // array is the array needing to be filtered
- {
+function MakeMultiFilter(originalArray) {
 
-  // initial array variable declaration
-  var originalArray=array;
-  var currentArray=originalArray;
+  //create local block-scoped variable, allowing for array to be filtered
+  let currentArray = [...originalArray];
 
-  // array filterer function begins, function output is returned
-  return (function arrayFilterer(func, callback)
-  {
+  function arrayFilterer(filterCriteria, callback) {
 
-    if (typeof func == "function") //if parameter call is the function type, will be caught
-    {
-      console.log("filtering currentArray"); // console message
-      currentArray = currentArray.filter(func); //filters current array to change this
-    } else {
-      console.log("Value not of type function returning currentArray unfiltered"); // console message
-      return currentArray; //returns array unfiltered
+    if (typeof filterCriteria === 'function') {
+      currentArray = currentArray.filter(filterCriteria); //filters array based on param criteria
+    } else if (typeof filterCriteria === 'undefined') {
+      // return copy of the currentArray where there is no filter specific information
+      return [...currentArray];
     }
 
-    if (typeof callback == "function") // if callback param is caught as function, will run back original array to filter
-    { 
-      callback.call(originalArray); // calls through original array again
-    } else {
-      console.log("Value not of type function returning arrayFilterer unfiltered"); // otherwise, returns arrayFilterer
-      return arrayFilterer;
+    if (typeof callback === 'function') {
+      callback.call(originalArray, currentArray); //send back array after original call
     }
 
+    // return arrayFilterer function and it will be processed
+    return arrayFilterer;
   }
-  );
- }
+
+  return arrayFilterer;
+}
+
 
 // Invoking MakeMultiFilter() with originalArray = [1, 2, 3] returns a
 // function, saved in the variable arrayFilterer1, that can be used to

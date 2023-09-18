@@ -19,7 +19,7 @@ p3Message : 'SUCCESS'
 };
 
 // Keep track of all the var statements
-var varDeclared = ['svarDeclared', 'p1Message', 'p2Message', 'p3Message'];
+var varDeclared = ['varDeclared', 'p1Message', 'p2Message', 'p3Message'];
 
 
 // Utility functions

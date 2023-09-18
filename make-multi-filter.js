@@ -1,3 +1,4 @@
+'use strict';
 function MakeMultiFilter(array) // array is the array needing to be filtered
  {
 

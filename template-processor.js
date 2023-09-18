@@ -1,20 +1,24 @@
-let template;
+'use strict';
+
 
 class TemplateProcessor {
+
     constructor(template)
     {
-        this.template = template
+        this.template = template;
     }
     fillIn(variable){
-        let entries = Object.entries(variable)
+        const entries = Object.entries(variable);
         for(const [key,value] of entries){
-            let lookup =  `{{${key}}}`
-            if (template.includes(lookup)) {
-                template = template.replace(lookup, value)
+            const lookup =  `{{${key}}}`;
+            if (this.template.includes(lookup)) {
+                this.template = this.template.replace(lookup, value);
             }
         }
-        return template
+        return this.template;
     }
 }
+
+
 
 
